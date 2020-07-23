@@ -1,0 +1,39 @@
+{
+  "name": "observablehq-web-component",
+  "version": "0.0.2",
+  "description": "A friendly web-component for redering Observablehq notebooks cells.",
+  "main": "dist/observablehq-component.js",
+  "unpkg": "dist/observablehq-component.js",
+  "jsdelivr": "dist/observablehq-component.min.js",
+  "module": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/radames/observablehq-web-component.git"
+  },
+  "scripts": {
+    "serve": "live-server",
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web-components",
+    "observablehq",
+    "notebooks",
+    "dashboard",
+    "front-end",
+    "html",
+    "visualization"
+  ],
+  "author": "Radamés Ajna",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@observablehq/runtime": "^4.7.2",
+    "rollup": "^2.22.2",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^6.1.0",
+    "terser": "^4.8.0"
+  }
+}

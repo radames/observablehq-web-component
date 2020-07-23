@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>observablehq-web-component</title>
+
+    <link rel="stylesheet" href="styles.css" />
+    <!-- <script src="../dist/observablehq-web-component.js" defer></script> -->
+    <script src="../index.js" defer type="module"></script>
+
+</head>
+
+<body>
+    <div class="flex">
+        <o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart" injections={"height":300,"color":"brown"}>
+        </o-cell>
+        <o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart"></o-cell>
+        <o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart"></o-cell>
+    </div>
+    <o-cell notebook="@observablehq/introduction-to-views" cell="viewof point"></o-cell>
+    <o-cell notebook="@fil/synchronized-projections"></o-cell>
+</body>
+
+</html>
