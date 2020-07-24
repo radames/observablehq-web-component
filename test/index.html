@@ -9,19 +9,24 @@
     <title>observablehq-web-component</title>
 
     <link rel="stylesheet" href="styles.css" />
-    <!-- <script src="../dist/observablehq-web-component.js" defer></script> -->
-    <script src="../index.js" defer type="module"></script>
+    <script src="../dist/observablehq-web-component.js" defer></script>
+    <!-- <script src="../index.js" defer type="module"></script> -->
 
 </head>
 
 <body>
+    <!-- multiple cells with inejectoons  -->
+
     <div class="flex">
         <o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart" injections={"height":300,"color":"brown"}>
         </o-cell>
-        <o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart"></o-cell>
-        <o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart"></o-cell>
+        <o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart" injections={"height":400,"color":"red"}>
+        </o-cell>
+        <o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart" injections={"color":"gray"}></o-cell>
     </div>
+    <!-- viewof cell example  -->
     <o-cell notebook="@observablehq/introduction-to-views" cell="viewof point"></o-cell>
+    <!-- whole notebook example -->
     <o-cell notebook="@fil/synchronized-projections"></o-cell>
 </body>
 

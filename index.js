@@ -1,10 +1,4 @@
-// import { Runtime, Inspector, Library } from 'https://cdn.jsdelivr.net/npm/@observablehq/runtime@4.7.2/src/index.js' //@observablehq/runtime';
-
-import {
-  Runtime,
-  Inspector,
-  Library,
-} from 'https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js';
+import { Runtime, Inspector, Library } from '@observablehq/runtime';
 
 const staticAttrs = ['notebook', 'cell', 'class', 'style'];
 
@@ -43,14 +37,34 @@ class ObservablehqCell extends HTMLElement {
     this.init();
   }
   async init() {
-    this._notebook = await this.importNotebook(this.notebook, this.injections);
-    const generator = await this._notebook.cell(this.cell);
-    if (!generator) return;
+    // inspired by
+    // https://observablehq.com/@mbostock/dataflow
+    // https://observablehq.com/d/d0bb058f650143a9
+    // load selected notebook definitions
+    const { default: define } = await import(
+      /^https:/.test(this.notebook)
+        ? this.notebook
+        : `https://api.observablehq.com/${this.notebook}.js?v=3`
+    );
+    // create runtime with or not custom library
+    const runtime = new Runtime(this.library);
 
+    // Create the main module, including any injected values.
+    const main = runtime.module();
+    for (const name in this.injections) {
+      main.define(name, [], () => this.injections[name]);
+    }
+    const imported = runtime.module(define);
+    this._notebook = imported.derive([...Object.keys(this.injections)], main);
+
+    if (!this.cell) {
+      new Runtime(this.library).module(define, Inspector.into(this.wrapper));
+      return;
+    }
     try {
-      const result = generator.next(); // yield generator
-      const value = await result.value; // await cell value
-      this.wrapper.appendChild(value); // append it to shadowelement root
+      main
+        .variable(new Inspector(this.wrapper))
+        .import(this.cell, this._notebook);
     } catch (e) {
       console.error('cell name error', e);
     }
@@ -88,94 +102,6 @@ class ObservablehqCell extends HTMLElement {
     // setter converts it back to string
     this.setAttribute('injections', JSON.stringify(newValue));
   }
-  // from https://observablehq.com/@mbostock/dataflow
-  // https://observablehq.com/d/d0bb058f650143a9
-  importNotebook(
-    notebookSpecifier, // e.g., "@d3/bar-chart"
-    injections = {} // e.g., {data: [{name, value}, …]}
-  ) {
-    const promise = (async () => {
-      // Create the main module, including any injected values.
-      const runtime = new Runtime(this.library);
-      const main = runtime.module();
-      for (const name in injections) {
-        main.define(name, [], () => injections[name]);
-      }
-
-      // Load the requested notebook’s definition as an ES module.
-      const { default: define } = await import(
-        /^https:/.test(notebookSpecifier)
-          ? notebookSpecifier
-          : `https://api.observablehq.com/${notebookSpecifier}.js?v=3`
-      );
-
-      // Create the imported notebook’s module, and then derive a module
-      // from it to inject the desired values. (If there are none, then
-      // this is basically a noop.)
-      const imported = runtime.module(define);
-      const derived = imported.derive([...Object.keys(injections)], main);
-      // return full notebook if no cells are presented
-
-      // In many cases the imported cell will only have a single value, but
-      // we must use the most generic representation (an async generator) as
-      // the imported cell may be an async generator, or may reference one.
-
-      derived.cell = (cellName) => {
-        if (!cellName) {
-          const runtime = new Runtime(this.library).module(
-            define,
-            Inspector.into(this.wrapper)
-          );
-          return;
-        }
-        return this.library.Generators.observe((notify) => {
-          // Create the primary variable with an observer that will report the
-          // desired cell’s fulfilled or rejected values.
-          console.log("testt")
-          main
-            .variable({
-              fulfilled(value) {
-                notify(value);
-              },
-              rejected(value) {
-                notify(Promise.reject(value));
-              },
-            })
-            .import(cellName, derived);
-
-          // Lastly, when this generator is disposed, dispose the runtime to
-          // ensure that any imported generators terminate.
-          return () => runtime.dispose();
-        });
-      };
-
-      return derived;
-    })();
-    promise.cell = (cellName) =>
-      promise.then((notebook) => notebook.cell(cellName));
-    return promise;
-  }
-
-  importCell(
-    cellName, // e.g., "chart"
-    notebookSpecifier, // e.g., "@d3/bar-chart"
-    injections = {} // e.g., {data: [{name, value}, …]}
-  ) {
-    return this.importNotebook(notebookSpecifier, injections).cell(cellName);
-  }
-  // observeAttrChange(el, callback) {
-  //   var observer = new MutationObserver((mutations) => {
-  //     mutations.forEach((mutation) => {
-  //       if (mutation.type === 'attributes') {
-  //         let newVal = mutation.target.getAttribute(mutation.attributeName);
-  //         callback(mutation.attributeName, newVal);
-  //       }
-  //     });
-  //   });
-  //   observer.observe(el, { attributes: true });
-  //   return observer;
-  // }
-  // Fires when an instance was removed from the document
   disconnectedCallback() {}
   static get observedAttributes() {
     return ['injections'];
