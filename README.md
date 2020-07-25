@@ -37,7 +37,8 @@ cell name you're mounting
 a JSON like string with cell values you want to override example: `{"height":300,"color":"brown"}`, ps it's a bit annoying a JSON string as an html attribute, however, this is the easiest way to make it simple as possible
 
 ## Example
-
+- [link](https://radames.github.io/observablehq-web-component/)
+- [source](https://github.com/radames/observablehq-web-component/blob/main/test/index.html)
 ```html
 <!-- multiple injections  -->
 
