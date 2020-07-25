@@ -1,4 +1,4 @@
-# # Observablehq Web Component
+# Observablehq Web Component
 
 Another web experiment creating ways to publish and layouting [Observablehq notebooks](https://observablehq.com/) content.
 
