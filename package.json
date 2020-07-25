@@ -1,7 +1,7 @@
 {
-  "name": "observablehq-web-component",
-  "version": "0.0.2",
-  "description": "A friendly web-component for redering Observablehq notebooks cells.",
+  "name": "obsevablehq-web-component",
+  "version": "0.0.4",
+  "description": "A friendly web-component for rendering Observablehq notebooks cells as reusable encapsulated HTML tags",
   "main": "dist/observablehq-component.js",
   "unpkg": "dist/observablehq-component.js",
   "jsdelivr": "dist/observablehq-component.min.js",
