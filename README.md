@@ -51,6 +51,9 @@ a JSON like string with cell values you want to override example: `{"height":300
 <o-cell notebook="@fil/synchronized-projections"></o-cell>
 ```
 
+inception example
+https://observablehq.com/d/dec1870d937612eb
+
 ## Problems / TODOs
 * If you embed two cells from the same notebook, they won't be reactive/communicate.
 
