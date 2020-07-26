@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>observablehq-web-component</title>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="observablehq-web-component.js" defer></script>
+    <!-- <script src="../index.js" defer type="module"></script> -->
+    <style>
+        body,
+        html {
+            margin: 1rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-child {
+            flex-basis: calc(100% / 3);
+        }
+
+        .flex-col {
+            flex-basis: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- multiple cells with inejectoons  -->
+
+    <div class="flex">
+        <o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"height":300,"color":"brown"}>
+        </o-notebook>
+        <o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"height":400,"color":"red"}>
+        </o-notebook>
+        <o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"color":"gray"}></o-notebook>
+    </div>
+    <!-- viewof cell example  -->
+    <o-notebook url="@observablehq/introduction-to-views" cell="viewof point"></o-notebook>
+    <!-- whole notebook example -->
+    <o-notebook url="@fil/synchronized-projections"></o-notebook>
+</body>
+
+</html>

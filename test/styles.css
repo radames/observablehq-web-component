@@ -8,3 +8,6 @@ html {
 .flex-child {
   flex-basis: calc(100% / 3);
 }
+.flex-col{
+  flex-basis: 50%;
+}

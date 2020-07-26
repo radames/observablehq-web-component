@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>observablehq-web-component</title>
+
+    <script src="observablehq-web-component.js" defer></script>
+    <!-- <script src="../index.js" defer type="module"></script> -->
+    <style>
+        body,
+        html {
+            margin: 1rem;
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .flex-child {
+            width: 100%;
+        }
+
+        @media screen and (min-width: 500px) {
+            .flex-child {
+                width: calc(100% / 2);
+            }
+        }
+        @media screen and (min-width: 1000px) {
+            .flex-child {
+                width: calc(100% / 3);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Dashboard example</h1>
+    <p> <a href="https://observablehq.com/@pierreleripoll/vegasync" target="_blank">original notebook</a></p>
+    <o-notebook url="d/aaa64eeb1e6ec93f">
+        <div class="flex">
+            <o-cell name="viewof dateView" class="flex-child"></o-cell>
+            <o-cell name="viewof weight" class="flex-child"></o-cell>
+            <o-cell name="viewof sport" class="flex-child"></o-cell>
+            <o-cell name="viewof sankeyView" class="flex-child"></o-cell>
+            <o-cell name="viewof medalsPieView" class="flex-child"></o-cell>
+            <o-cell name="viewof nationality" class="flex-child"></o-cell>
+        </div>
+    </o-notebook>
+</body>
+
+</html>
