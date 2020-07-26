@@ -14,42 +14,64 @@ Add the script tag to your html page
 create an `<o-cell>` element
 
 ```html
-<o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart" injections={"height":400,"color":"darkgray"}></o-cell>
+<o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"height":400,"color":"darkgray"}></o-cell>
 ```
 
-## `<o-cell>`
+## `<o-notebook>`
 
-I've name the component as `<o-cell>` Observablehq cell,trying to be short and make some sense, however I'm still not sure if this is a good name.
+I've name the component as `<o-notebook>` as for Observablehq notebook and `<o-cell>` for Observablehq cells. 
 
 This is a very simple implementation:
 * you can inject and redefine attributes from your original notebook
 * you can select different cells
 * mount the entire notebook
-* `width` is set from the parent wrapper, making it fully responsive to the parent layout
+* `width` is set from the parent wrapper, making it fully responsive to the parent layout, although, there are few problems related to this
+* you can nest under`<o-notebook>` multiple `<o-cell>` in case you want to layout multiple cells from the same notebook.
 
 ### Attributes
 
-#### `notebook`: required
+#### `url`: required
 notebook handle, normally user/notebook or d/hash for shared/private notebooks
 #### `cell`: optional
-cell name you're mounting
+if you're mounting a single notebook cell, juste name it as `<o-notebook cell="NAME">`, if you have multiples, read below about `<o-cell`>
 #### `injections`: optional
 a JSON like string with cell values you want to override example: `{"height":300,"color":"brown"}`, ps it's a bit annoying a JSON string as an html attribute, however, this is the easiest way to make it simple as possible
+
+## `<o-cell>`
+
+You can nest cells from the same notebook under `<o-notebook>`
+```html
+<o-notebook url="d/aaa64eeb1e6ec93f">
+    <div class="flex">
+        <o-cell name="viewof dateView" class="flex-child"></o-cell>
+        <o-cell name="viewof weight" class="flex-child"></o-cell>
+    </div>
+</o-notebook>
+```
+### Attributes
+
+notebook handle, normally user/notebook or d/hash for shared/private notebooks
+#### `name`: require
+cell name your mounting
 
 ## Example
 - [link](https://radames.github.io/observablehq-web-component/test/)
 - [source](https://github.com/radames/observablehq-web-component/blob/main/test/index.html)
 ```html
 <!-- multiple injections  -->
+    <div class="flex">
+        <o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"height":300,"color":"brown"}>
+        </o-notebook>
+        <o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"height":400,"color":"red"}>
+        </o-notebook>
+        <o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"color":"gray"}></o-notebook>
+    </div>
+    <!-- viewof cell example  -->
+    <o-notebook url="@observablehq/introduction-to-views" cell="viewof point"></o-notebook>
+    <!-- whole notebook example -->
+    <o-notebook url="@fil/synchronized-projections"></o-notebook>
 
-<o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart" injections={"height":300,"color":"brown"}></o-cell>
-<o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart" injections={"height":400,"color":"red"}></o-cell>
-<o-cell class="flex-child" notebook="@d3/bar-chart" cell="chart" injections={"color":"gray"}></o-cell>
-
-<!-- viewof cell example  -->
-<o-cell notebook="@observablehq/introduction-to-views" cell="viewof point"></o-cell>
-<!-- entire notebook example -->
-<o-cell notebook="@fil/synchronized-projections"></o-cell>
+    <o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"height":400,"color":"darkgray"}></o-cell>
 ```
 
 inception example
