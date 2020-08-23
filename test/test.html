@@ -9,7 +9,7 @@
     <title>observablehq-web-component</title>
 
     <link rel="stylesheet" href="styles.css" />
-    <script src="observablehq-web-component.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/observablehq-web-component" defer></script>
     <!-- <script src="../index.js" defer type="module"></script> -->
     <style>
         body,
@@ -33,7 +33,9 @@
 
 <body>
     <!-- multiple cells with inejectoons  -->
+    <h1> Multiple notebooks example</h1>
 
+    <p> original notebooks [<a href="https://observablehq.com/@fil/synchronized-projections" target="_blank">1</a>, <a href="https://observablehq.com/@observablehq/introduction-to-views" target="_blank">2</a>]</p>
     <div class="flex">
         <o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"height":300,"color":"brown"}>
         </o-notebook>

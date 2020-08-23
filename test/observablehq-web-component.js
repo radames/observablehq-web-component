@@ -1,1 +1,0 @@
-../dist/observablehq-web-component.js

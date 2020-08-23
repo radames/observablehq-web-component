@@ -54,9 +54,16 @@ notebook handle, normally user/notebook or d/hash for shared/private notebooks
 #### `name`: require
 cell name your mounting
 
-## Example
-- [link](https://radames.github.io/observablehq-web-component/test/)
-- [source](https://github.com/radames/observablehq-web-component/blob/main/test/index.html)
+## Example 1
+
+
+
+- Original Notebooks
+    - [@observablehq/introduction-to-views](https://observablehq.com/@observablehq/introduction-to-views)
+    - [@fil/synchronized-projections](https://observablehq.com/@fil/synchronized-projections)
+- [link](https://radames.github.io/observablehq-web-component/test/test.html)
+- [source](https://github.com/radames/observablehq-web-component/blob/main/test/test.html)
+
 ```html
 <!-- multiple injections  -->
     <div class="flex">
@@ -73,6 +80,27 @@ cell name your mounting
 
     <o-notebook class="flex-child" url="@d3/bar-chart" cell="chart" injections={"height":400,"color":"darkgray"}></o-cell>
 ```
+
+## Example 2 Dashboard
+
+- Original Notebook [@pierreleripoll/vegasync](https://observablehq.com/@pierreleripoll/vegasync)
+- [link](https://radames.github.io/observablehq-web-component/test/dashboard.html)
+- [source](https://github.com/radames/observablehq-web-component/blob/main/test/dashboard.html)
+
+```html
+<!-- single notebook multiple cells -->
+    <o-notebook url="d/aaa64eeb1e6ec93f">
+        <div class="flex">
+            <o-cell name="viewof dateView" class="flex-child"></o-cell>
+            <o-cell name="viewof weight" class="flex-child"></o-cell>
+            <o-cell name="viewof sport" class="flex-child"></o-cell>
+            <o-cell name="viewof sankeyView" class="flex-child"></o-cell>
+            <o-cell name="viewof medalsPieView" class="flex-child"></o-cell>
+            <o-cell name="viewof nationality" class="flex-child"></o-cell>
+        </div>
+    </o-notebook>
+```
+
 
 inception example
 https://observablehq.com/d/dec1870d937612eb
